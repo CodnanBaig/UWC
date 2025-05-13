@@ -1,7 +1,11 @@
+"use client";
+
 import Image from "next/image";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from 'swiper/modules';
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 const achievements = [
   {
@@ -34,18 +38,7 @@ const achievements = [
   },
 ];
 
-export default function Achievements() {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: true,
-    adaptiveHeight: true,
-    centerMode: false,
-  };
-
+export default function AchievementsPage() {
   return (
     <main className="min-h-screen bg-white">
       <section className="w-full bg-white py-16 md:py-24 px-0">
@@ -55,29 +48,38 @@ export default function Achievements() {
             <span className="font-sans">Achievements</span>
           </h1>
         </div>
-        <div className="max-w-6xl mx-auto">
-          <Slider {...settings}>
+        <div className="max-w-6xl mx-auto px-4">
+          <Swiper
+            modules={[Navigation, Pagination]}
+            navigation
+            pagination={{ clickable: true }}
+            spaceBetween={20}
+            slidesPerView={1}
+            className="achievement-swiper"
+          >
             {achievements.map((achievement) => (
-              <div key={achievement.title} className="flex flex-col items-center">
-                <div className="w-full flex justify-center">
-                  <div className="w-full max-w-4xl rounded-lg overflow-hidden shadow-lg">
-                    <Image
-                      src={achievement.image}
-                      alt={achievement.title}
-                      width={1200}
-                      height={500}
-                      className="object-cover w-full h-[250px] md:h-[400px]"
-                    />
+              <SwiperSlide key={achievement.title}>
+                <div className="flex flex-col items-center">
+                  <div className="w-full flex justify-center">
+                    <div className="w-full max-w-4xl rounded-lg overflow-hidden shadow-lg">
+                      <Image
+                        src={achievement.image}
+                        alt={achievement.title}
+                        width={1200}
+                        height={500}
+                        className="object-cover w-full h-[250px] md:h-[400px]"
+                      />
+                    </div>
+                  </div>
+                  <div className="mt-6 text-center">
+                    <div className="text-2xl font-semibold text-gray-900 mb-1">{achievement.title}</div>
+                    <div className="text-base text-gray-600 mb-2">{achievement.description}</div>
+                    <div className="text-xs text-cyan-700 font-semibold tracking-wide uppercase">{achievement.year} &middot; {achievement.category}</div>
                   </div>
                 </div>
-                <div className="mt-6 text-center">
-                  <div className="text-2xl font-semibold text-gray-900 mb-1">{achievement.title}</div>
-                  <div className="text-base text-gray-600 mb-2">{achievement.description}</div>
-                  <div className="text-xs text-cyan-700 font-semibold tracking-wide uppercase">{achievement.year} &middot; {achievement.category}</div>
-                </div>
-              </div>
+              </SwiperSlide>
             ))}
-          </Slider>
+          </Swiper>
         </div>
       </section>
 

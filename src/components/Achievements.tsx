@@ -8,29 +8,26 @@ import "swiper/css/pagination";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useRef, useState } from "react";
 
+// Use the company logo as fallback for all slides
+const fallbackImage = "/assets/UWC Regd Logo.png";
+
 const achievements = [
   {
-    src: "https://images.unsplash.com/photo-1545516336-39f3f39a0cb0?auto=format&fit=crop&w=1200&q=80",
     label: "Mumbai Trans Harbour Link",
   },
   {
-    src: "https://images.unsplash.com/photo-1532122864580-8172708e75e4?auto=format&fit=crop&w=1200&q=80",
     label: "Metro Rail Project",
   },
   {
-    src: "https://images.unsplash.com/photo-1566655424822-d67dee7f2ce6?auto=format&fit=crop&w=1200&q=80",
     label: "Smart City Initiative",
   },
   {
-    src: "https://images.unsplash.com/photo-1542461927-dd68c85adc56?auto=format&fit=crop&w=1200&q=80",
     label: "Highway Infrastructure Development",
   },
   {
-    src: "https://images.unsplash.com/photo-1553547274-0df401ae03c9?auto=format&fit=crop&w=1200&q=80",
     label: "Urban Water Management System",
   },
   {
-    src: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=80",
     label: "Sustainable Energy Projects",
   },
 ];
@@ -38,6 +35,7 @@ const achievements = [
 export default function Achievements() {
   const swiperRef = useRef<any>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  
   return (
     <section className="w-full bg-white py-12 md:py-20 px-0 overflow-hidden">
       <div className="w-full max-w-6xl mx-auto">
@@ -65,13 +63,14 @@ export default function Achievements() {
           >
             {achievements.map((item, i) => (
               <SwiperSlide key={i}>
-                <div className="overflow-hidden">
+                <div className="overflow-hidden bg-gray-100 flex items-center justify-center">
                   <Image
-                    src={item.src}
+                    src={fallbackImage}
                     alt={item.label}
                     width={1200}
                     height={600}
-                    className="object-cover w-full aspect-[21/9]"
+                    className="object-contain w-[60%] aspect-[21/9]"
+                    priority
                   />
                 </div>
               </SwiperSlide>
